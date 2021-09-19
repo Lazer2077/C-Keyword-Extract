@@ -1,8 +1,20 @@
 # C-Keyword-Extract
 # C语言关键词提取计数
-Extract the Keyword from a C/C++ file
-
+---
 EE302 Lab2
+Extract the Keyword from a C/C++ file， 
+## Requirements
+Program Requirements
+1. Basic requirement: output "keyword" statistics
+
+2. Advanced requirement: output the number of "switch case" structures, and output the number of "case" corresponding to each group
+
+3. Uplifting requirement: output the number of "if else" structures
+
+4. Ultimate requirement: output the number of "if, else if, else" structures
+
+---
+
 ## Idea
 - For this time,  we first care about the annotation and inCode (String, variable name) keyword, we should make judgement under these situation.
 - After searching from the Internet, I decide using re module in python to match the basic function
