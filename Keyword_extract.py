@@ -1,16 +1,33 @@
 # coding utf-8
 import re
-                 
+def pop(str1,nest_num):
+    global if_elseif_cnt
+    global  if_else_cnt
+    #while str1!='': 
+    for em in range(nest_num):
+        if len(re.findall('10(30)+20', str1))>0:
+            if_elseif_cnt+=len(re.findall('10(30)+20', str1))
+            str1=re.sub('10(30)+20', '', str1)
+        if len(re.findall('1020', str1)):
+            if_else_cnt+=len(re.findall('1020', str1))
+            str1=re.sub('1020', '', str1)
+        te=re.findall('([123])100', str1)
+        if len(te)>0:
+            for it in te:
+                st=it+'100'
+                rep=it+'0'
+                re.sub(st,rep,str)
 ### TOP LEVEL###
-# file_path=input("Welcome to C keyword statistic!\n Please input file Path:")
 
 if __name__ == "__main__":
+    file_path=input("Welcome to C keyword statistic!\n Please input file Path:")
     level=int(input("Please input level:"))
-    f=open('testC.txt', 'r')
+    f=open(file_path, 'r')
     keyword_cnt=[0]*32
     sw_cnt=[0]
     sw_icnt=-1
     if_stack=0
+    stack1=''
     elseif_stack=0
     elseif_flag=False
     if_flag=False
@@ -25,11 +42,9 @@ if __name__ == "__main__":
     cnt=1
     total_num=0
     ###Search Layer###
-    
-    #print(key_word.index('case'))
     quote_pre=False
     for i in f:
-        print("line"+str(cnt))
+#         print("line"+str(cnt))
         shloop_cnt=0
         kwloop_cnt=0
         annota_line=-1
@@ -67,37 +82,29 @@ if __name__ == "__main__":
                         if_stack+=1
                         if_start=match.start()
                     if kwloop_cnt==9:
+                        if_stack+=1
                         else_end=match.end()
                 keyword_cnt[kwloop_cnt]+=1
                 total_num+=1
             kwloop_cnt+=1
+        if if_start - else_end==1:##find elseif in one line
+            stack1+='3'
+            #if_stack-=1
+        elif else_end>0:##find else but not if
+            stack1+='2'
+        elif if_start>0:
+            stack1+='1'
         if if_stack>0:
             for matchb in re.finditer('}',i):
+                stack1+='0'
                 if_stack-=1
-                if_flag=True
-                break  
-        if  if_flag:
-            if if_start - else_end==1:##find elseif in one line
-                ##go on to match more elseif
-                if elseif_flag==False:
-                    elseif_stack+=1
-                    elseif_flag=True 
-                if_stack-=1
-            elif else_end>0:##find else but not if
-                if elseif_flag:
-                    if_elseif_cnt+=1
-                    elseif_flag=False
-                    elseif_stack-=1
-                else:
-                    if_stack+=1
-                    if_else_cnt+=1
-                if_flag=False
-
+       # print(stack1)
         cnt+=1
-    f.close()
     ### Output Layer###
+    pop(stack1,4)
     print("total num:"+str(total_num))
     kwloop_cnt=0
+    key_word[7]-=key_word[8]
     for kw in key_word:
         if kwloop_cnt == 2:
             print("case num:",end="")
@@ -107,6 +114,11 @@ if __name__ == "__main__":
         else:
             print(kw+" num:"+str(keyword_cnt[kwloop_cnt]))
         kwloop_cnt+=1
+    if level>1:
+        print("case num:",end="")
+        for idx in range (len(sw_cnt)-1):
+            print(sw_cnt[idx],end=" ")
+        print()
     if level>2:
         print("if-else num:"+str(if_else_cnt))
     if level>3:
