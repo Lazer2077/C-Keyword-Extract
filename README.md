@@ -16,6 +16,8 @@ Program Requirements
 ---
 ## Blog Ref
 More info in CSDN Blog:
+
+
 https://blog.csdn.net/Waiting_fade/article/details/120354565?spm=1001.2014.3001.5501
 ## Idea
 - For this time,  we first care about the annotation and inCode (String, variable name) keyword, we should make judgement under these situation.
@@ -54,9 +56,15 @@ function added: level 3 logical realization, simple and incorret
 ### ver 4.0
 remake for level 3&4 method(_detail in blog_), match the problem requirement basicaly
 cancel the debug output
+### ver 4.6
+bug fixed: 
+- ignore the variable name
+- optimize the output layer
+- ignore the `#include'` and  `#define`
+  
 
 
-Thank you for readiing here, still have bug, keep updating utill ddl and found question
+**Thank you for readiing here! Program still have bug, keep updating utill ddl and found question**
 
 
 

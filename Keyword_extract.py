@@ -15,7 +15,9 @@ def pop(str1,nest_num):
         if len(te)>0:
             for it in te:
                 st=it+'100'
+                print(type(st))
                 rep=it+'0'
+                print(type(rep))
                 re.sub(st,rep,str)
 ### TOP LEVEL###
 
@@ -33,13 +35,15 @@ if __name__ == "__main__":
     if_flag=False
     if_elseif_cnt=0
     if_else_cnt=0
-    shiled_word=['//','/\*','\*/','\"','\\\\n\\\\']
+    shiled_word=['//','/\*','\*/','\"','\\\\n\\\\','#']
     annota_muti=False    
     key_word=['auto','break','case','char','const', 'continue', 'default','do',
     'double','else','enum','extern','float','for','goto','if',
     'int','long','register','return','short' ,'signed' ,'sizeof','static',
     'struct','switch', 'typedef','union','unsigned','void','volatile','while']
     cnt=1
+    for u in range(len(key_word)):
+        key_word[u]+='[(\ ;{]'
     total_num=0
     ###Search Layer###
     quote_pre=False
@@ -60,7 +64,7 @@ if __name__ == "__main__":
                     annota_muti=True
                 elif shloop_cnt==2:
                     annota_muti=False
-                elif shloop_cnt==3:
+                elif shloop_cnt==3 or shloop_cnt==5:
                     quote_line=True
                     break
                 elif shloop_cnt==4 and quote_pre:
@@ -102,18 +106,18 @@ if __name__ == "__main__":
         cnt+=1
     ### Output Layer###
     pop(stack1,4)
-    print("total num:"+str(total_num))
     kwloop_cnt=0
-    key_word[7]-=key_word[8]
-    for kw in key_word:
-        if kwloop_cnt == 2:
-            print("case num:",end="")
-            for idx in range (len(sw_cnt)-1):
-                print(sw_cnt[idx],end=" ")
-            print()
-        else:
-            print(kw+" num:"+str(keyword_cnt[kwloop_cnt]))
-        kwloop_cnt+=1
+    # for kw in key_word:
+    #     if kwloop_cnt == 2:
+    #         print("case num:",end="")
+    #         for idx in range (len(sw_cnt)-1):
+    #             print(sw_cnt[idx],end=" ")
+    #         print()
+    #     else:
+    #         print(kw[:-7]+" num:"+str(keyword_cnt[kwloop_cnt]))
+    #     kwloop_cnt+=1
+    if level>0:
+        print("total num:"+str(total_num))
     if level>1:
         print("case num:",end="")
         for idx in range (len(sw_cnt)-1):
